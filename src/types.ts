@@ -295,6 +295,7 @@ export interface VenusTimePeriod {
   enabled: boolean;
 }
 
+
 /**
  * Venus device data interface
  */
@@ -357,3 +358,117 @@ export interface VenusDeviceData extends BaseDeviceData {
   communicationModuleVersion?: string;
   wifiName?: string;
 }
+
+// MIIIxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+/**
+ * Jupiter device working status types TODO
+ */
+export type JupiterWorkingStatus =
+  | 'sleep'
+  | 'standby'
+  | 'charging'
+  | 'discharging'
+  | 'backup'
+  | 'upgrading'
+  | 'bypass';
+
+/**
+ * Jupiter device CT status types
+ */
+export type JupiterCTStatus = 'notConnected' | 'connected' | 'weakSignal';
+
+/**
+ * Jupiter device battery working status types
+ */
+export type JupiterBatteryWorkingStatus = 'notWorking' | 'charging' | 'discharging' | 'unknown';
+
+/**
+ * Jupiter device working mode types
+ */
+export type JupiterWorkingMode = 'automatic' | 'manual' ;
+
+/**
+ * Jupiter time period configuration
+ */
+export interface JupiterTimePeriod {
+  startTime: string;
+  endTime: string;
+  weekday: WeekdaySet;
+  power: number;
+  enabled: boolean;
+}
+
+/**
+ * Jupiter device data interface
+ */
+ // Battery information
+ export interface JupiterDeviceData extends BaseDeviceData {
+
+  batteryPercentage?: number;
+  batteryCapacity?: number;
+ 
+  // Power information
+  // totalChargingCapacity?: number;
+  // totalDischargeCapacity?: number;
+  dailyChargingCapacity?: number; //Y
+  monthlyChargingCapacity?: number; //yy
+  yearlyChargingCapacity?: number; //yy new
+  dailyDischargeCapacity?: number; //y
+  monthlyDischargeCapacity?: number; //y
+ 
+  // Income information
+  // dailyIncome?: number;
+  // monthlyIncome?: number;
+  // totalIncome?: number;
+ 
+  // Grid information
+  // offGridPower?: number;
+  combinedPower?: number; //y
+  workingStatus?: JupiterWorkingStatus; //y
+ 
+  // CT information
+  ctStatus?: JupiterCTStatus; // y
+ 
+  // Battery status
+  batteryWorkingStatus?: JupiterBatteryWorkingStatus; //yy
+  batterySoc?: number; //y 
+ 
+  // Error codes
+  errorCode?: number; //y
+  warningCode?: number; // y
+ 
+  // // Device information
+  deviceVersion?: number;
+  // gridType?: VenusGridType;
+  workingMode?: JupiterWorkingMode; //y
+
+  // Time periods for scheduled operations
+  timePeriods?: JupiterTimePeriod[]; //y
+
+  // Additional settings
+  autoSwitchWorkingMode?: boolean; //y
+  // backupEnabled?: boolean;
+  // transactionRegionCode?: number;
+  // chargingPrice?: number;
+  // dischargePrice?: number;
+  wifiSignalStrength?: number; // wif_s=75
+  // versionSet?: '800W' | '2500W';
+  // maxChargingPower?: number;
+  // maxDischargePower?: number;
+  // ctType?: VenusCTType;
+  // phaseType?: VenusPhaseType;
+  // rechargeMode?: VenusRechargeMode;
+  bmsVersion?: number;
+  communicationModuleVersion?: string;
+  wifiName?: string; //y
+
+  // PV information
+ 
+  photovoltaikString1?: number; //y 
+  photovoltaikString2?: number; //y
+  photovoltaikString3?: number; //y
+  photovoltaikString4?: number; //y
+  
+ 
+  }
